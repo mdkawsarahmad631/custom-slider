@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Slider</title>
+    <!-- Font imports -->
+    <link href="https://fonts.cdnfonts.com/css/lemon-milk" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Font configuration */
+        @font-face {
+            font-family: 'Lemon Milk';
+            src: url('https://fonts.cdnfonts.com/css/lemon-milk') format('woff2');
+        }
+
+        /* Main slider container */
+        .custom-slider {
+            position: relative;
+            height: 100vh;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        /* Slide styling */
+        .custom-slider .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.7;
+            transition: opacity 1s ease, transform 1s ease;
+            transform: translateX(100%);
+        }
+
+        .custom-slider .active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .custom-slider .prev {
+            transform: translateX(-100%);
+        }
+
+        /* Background image styling */
+        .custom-slider .background-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: 1;
+        }
+
+        /* Heading styles */
+        .custom-slider h1 {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            font-size: 5vw;
+            width: 80%;
+            max-width: 800px;
+            z-index: 2;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            font-weight: bold;
+            font-family: 'Lemon Milk', sans-serif;
+        }
+
+        /* Text alignments for specific slides */
+        .custom-slider .slide:nth-child(1) h1,
+        .custom-slider .slide:nth-child(2) h1 {
+            right: 5%;
+            text-align: right;
+        }
+
+        .custom-slider .slide:nth-child(3) h1,
+        .custom-slider .slide:nth-child(4) h1 {
+            left: 5%;
+            text-align: left;
+        }
+
+        .custom-slider .active h1 {
+            opacity: 1;
+        }
+
+        /* Navigation buttons */
+        .slider-nav {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            z-index: 3;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+            padding: 0 20px;
+        }
+
+        .slider-nav button {
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slider-nav button:hover {
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        /* Carousel indicators */
+        .carousel-indicators {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 3;
+        }
+
+        .carousel-indicators .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .carousel-indicators .indicator.active {
+            background: white;
+        }
+
+        /* Click to know more button */
+        .click-to-know-more {
+            position: absolute;
+            bottom: 95px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 50px;
+            z-index: 3;
+            text-align: center;
+            cursor: pointer;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        /* Responsive styles */
+        @media (max-width: 1024px) and (min-width: 768px) {
+            .custom-slider  {
+                font-size: 4vw;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .custom-slider {
+                height: 80vh;
+            }
+            .custom-slider h1 {
+                font-size: 7vw;
+                width: 90%;
+            }
+            .slider-nav button {
+                width: 35px;
+                height: 35px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .custom-slider {
+                height: 70vh;
+            }
+            .custom-slider h1 {
+                font-size: 8vw;
+            }
+            .slider-nav button {
+                width: 30px;
+                height: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="custom-slider">
+        <!-- Slide 1 -->
+        <div class="slide">
+            <img src="https://mooner.com.sg/wp-content/uploads/2024/10/1900_7201-01-scaled.jpg" alt="Background 1" class="background-img">
+            <h1></h1>
+            <div class="click-to-know-more">Click to know more</div>
+        </div>
+        <!-- Slide 2 -->
+        <div class="slide">
+            <img src="https://mooner.com.sg/wp-content/uploads/2024/10/1900_7203-01-scaled.jpg" alt="Background 2" class="background-img">
+            <h1></h1>
+        </div>
+        <!-- Slide 3 -->
+        <div class="slide">
+            <img src="https://mooner.com.sg/wp-content/uploads/2024/10/1900_7204-01-scaled.jpg" alt="Background 3" class="background-img">
+            <h1></h1>
+        </div>
+        <!-- Slide 4 -->
+        <div class="slide">
+            <img src="https://mooner.com.sg/wp-content/uploads/2024/10/1900_7205-scaled.jpg" alt="Background 4" class="background-img">
+            <h1></h1>
+            
+        </div>
+        
+        <!-- Navigation buttons -->
+        <div class="slider-nav">
+            <button class="prev"><i class="fas fa-chevron-left"></i></button>
+            <button class="next"><i class="fas fa-chevron-right"></i></button>
+        </div>
+
+        <!-- Carousel indicators -->
+        <div class="carousel-indicators"></div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        jQuery(document).ready(function($) {
+            let slides = $('.custom-slider .slide');
+            let currentIndex = 0;
+            let totalSlides = slides.length;
+            
+            /* Slide text content */
+            let texts = [
+                "COMING<br>SOON!",
+                "THE APP<br>FOR THE COMMUNITY.<br>JOIN MOONER!",
+                "NEED<br>AN EXTRA<br>PAIR OF<br>HANDS?",
+                "DISPATCH<br>RIDER<br>NEEDED! JOIN<br>MOONER!"
+            ];
+
+            /* Create indicators */
+            let indicatorsContainer = $('.carousel-indicators');
+            for(let i = 0; i < totalSlides; i++) {
+                indicatorsContainer.append(`<div class="indicator" data-index="${i}"></div>`);
+            }
+
+            function updateIndicators() {
+                $('.indicator').removeClass('active');
+                $(`.indicator[data-index="${currentIndex}"]`).addClass('active');
+            }
+
+            function animateText(index) {
+                let h1 = slides.eq(index).find('h1');
+                let text = texts[index];
+                h1.html('');
+                let charIndex = 0;
+
+                function addChar() {
+                    if (charIndex < text.length) {
+                        if (text.substr(charIndex, 4) === '<br>') {
+                            h1.html(h1.html() + '<br>');
+                            charIndex += 4;
+                        } else {
+                            h1.html(h1.html() + text[charIndex]);
+                            charIndex++;
+                        }
+                        setTimeout(addChar, 100);
+                    }
+                }
+
+                addChar();
+            }
+
+            function showSlide(index) {
+                let currentSlide = slides.eq(currentIndex);
+                let nextSlide = slides.eq(index);
+                
+                currentSlide.removeClass('active').addClass('prev');
+                nextSlide.addClass('active').removeClass('prev');
+                
+                setTimeout(function() {
+                    currentSlide.removeClass('prev');
+                }, 1000);
+
+                currentIndex = index;
+                animateText(currentIndex);
+                updateIndicators();
+            }
+
+            function showNextSlide() {
+                let nextIndex = (currentIndex + 1) % totalSlides;
+                showSlide(nextIndex);
+            }
+
+            function showPrevSlide() {
+                let prevIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+                showSlide(prevIndex);
+            }
+
+            /* Event listeners */
+            $('.slider-nav .next').click(showNextSlide);
+            $('.slider-nav .prev').click(showPrevSlide);
+
+            $('.indicator').click(function() {
+                let index = $(this).data('index');
+                showSlide(index);
+            });
+
+            /* Initialize first slide */
+            showSlide(currentIndex);
+            
+            /* Auto-slide interval */
+            setInterval(showNextSlide, 4000);
+
+            /* Touch event handling */
+            let touchStartX = 0;
+            let touchEndX = 0;
+
+            $('.custom-slider').on('touchstart', function(event) {
+                touchStartX = event.originalEvent.touches[0].clientX;
+            });
+
+            $('.custom-slider').on('touchend', function(event) {
+                touchEndX = event.originalEvent.changedTouches[0].clientX;
+                handleSwipe();
+            });
+
+            function handleSwipe() {
+                if (touchStartX - touchEndX > 50) {
+                    showNextSlide();
+                }
+                if (touchEndX - touchStartX > 50) {
+                    showPrevSlide();
+                }
+            }
+
+            /* Click to know more handler */
+            $('.click-to-know-more').on('click', function() {
+                console.log("Clicked to know more");
+            });
+        });
+    </script>
+</body>
+</html>
